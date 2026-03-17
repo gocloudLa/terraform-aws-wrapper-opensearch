@@ -97,28 +97,28 @@ module "wrapper_opensearch" {
         auto_software_update_enabled = true
       }
 
-      vpc_options = {
-        subnet_ids = data.aws_subnets.this.ids
-      }
+      # vpc_options = {
+      #   subnet_ids = data.aws_subnets.this.ids
+      # }
 
       # VPC endpoint
-      vpc_endpoints = {
-        one = {
-          subnet_ids = data.aws_subnets.this.ids
-        }
-      }
+      # vpc_endpoints = {
+      #   one = {
+      #     subnet_ids = data.aws_subnets.this.ids
+      #   }
+      # }
 
-      # Security Group rule example
-      security_group_rules = {
-        ingress_443 = {
-          type        = "ingress"
-          description = "HTTPS access from VPC"
-          from_port   = 443
-          to_port     = 443
-          ip_protocol = "tcp"
-          cidr_ipv4   = data.aws_vpc.this.cidr_block
-        }
-      }
+      # # Security Group rule example
+      # security_group_rules = {
+      #   ingress_443 = {
+      #     type        = "ingress"
+      #     description = "HTTPS access from VPC"
+      #     from_port   = 443
+      #     to_port     = 443
+      #     ip_protocol = "tcp"
+      #     cidr_ipv4   = data.aws_vpc.this.cidr_block
+      #   }
+      # }
 
       # Access policy
       access_policy_statements = [
@@ -133,8 +133,6 @@ module "wrapper_opensearch" {
           actions = ["es:*"]
         }
       ]
-
-      //tags = local.tags
     }
   }
 }

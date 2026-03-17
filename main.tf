@@ -29,7 +29,7 @@ module "opensearch" {
   create_cloudwatch_log_groups          = try(each.value.create_cloudwatch_log_groups, var.opensearch_defaults.create_cloudwatch_log_groups, true)
   create_cloudwatch_log_resource_policy = try(each.value.create_cloudwatch_log_resource_policy, var.opensearch_defaults.create_cloudwatch_log_resource_policy, true)
   create_saml_options                   = try(each.value.create_saml_options, var.opensearch_defaults.create_saml_options, false)
-  create_security_group                 = try(each.value.create_security_group, var.opensearch_defaults.create_security_group, true)
+  create_security_group                 = try(each.value.create_security_group, var.opensearch_defaults.create_security_group, false)
   domain_endpoint_options = try(each.value.domain_endpoint_options, var.opensearch_defaults.domain_endpoint_options, {
     "enforce_https" : true,
     "tls_security_policy" : "Policy-Min-TLS-1-2-2019-07"
@@ -79,5 +79,9 @@ module "opensearch" {
   tags          = try(each.value.tags, var.opensearch_defaults.tags, {})
   timeouts      = try(each.value.timeouts, var.opensearch_defaults.timeouts, {})
   vpc_endpoints = try(each.value.vpc_endpoints, var.opensearch_defaults.vpc_endpoints, {})
-  vpc_options   = try(each.value.vpc_options, var.opensearch_defaults.vpc_options, {})
+  # vpc_options   = try(each.value.vpc_options, var.opensearch_defaults.vpc_options, {})
+  vpc_options = {
+    subnet_ids         = try(each.value.subnet_ids, var.opensearch_defaults.subnet_ids, data.aws_subnets.this[each.key].ids)
+    security_group_ids = concat(try(each.value.security_group_create, true) ? [module.security_group_opensearch[each.key].security_group_id] : [], try(each.value.security_groups_ids, []))
+  }
 }

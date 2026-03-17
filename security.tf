@@ -1,0 +1,22 @@
+module "security_group_opensearch" {
+  source  = "terraform-aws-modules/security-group/aws"
+  version = "5.3.1"
+
+  for_each = var.opensearch_parameters
+
+  create          = lookup(each.value, "security_group_create", true)
+  name            = lookup(each.value, "security_group_name", "${local.common_name}-opensearch-${each.key}")
+  description     = lookup(each.value, "security_group_description", "Security Group managed by Terraform")
+  vpc_id          = data.aws_vpc.this[each.key].id
+  use_name_prefix = false
+  ingress_with_cidr_blocks = lookup(each.value, "ingress_with_cidr_blocks", [
+    {
+      rule        = "https-443-tcp"
+      cidr_blocks = data.aws_vpc.this[each.key].cidr_block
+    }
+  ])
+  egress_with_cidr_blocks      = lookup(each.value, "egress_with_cidr_blocks", [])
+  egress_with_ipv6_cidr_blocks = lookup(each.value, "egress_with_ipv6_cidr_blocks", [])
+
+  tags = merge(local.common_tags, try(each.value.tags, var.opensearch_defaults.tags, null))
+}
