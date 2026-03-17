@@ -1,0 +1,8 @@
+title: "OpenSearch Serverless Collections Example"
+description: "This example demonstrates the configuration of multiple Amazon OpenSearch Serverless collections with different access configurations (Public, Private, and Disabled) using Terraform."
+main_purpose: "The main purpose is to showcase how to set up OpenSearch Serverless collections alongside their respective access and network policies."
+key_features:
+  - "**Public Collection**: Sets up an OpenSearch Serverless collection accessible from the public internet, including necessary access and network policies."
+  - "**Private Collection**: Configures a private OpenSearch Serverless collection that restricts access to a specific VPC endpoint."
+  - "**VPC Endpoint**: Demonstrates the creation of an `aws_opensearchserverless_vpc_endpoint` connecting the private collection to your VPC subnets."
+  - "**Disabled Collection**: Shows how to conditionally disable the creation of an OpenSearch Serverless collection using the `create = false` toggle."
