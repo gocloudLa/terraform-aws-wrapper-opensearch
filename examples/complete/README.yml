@@ -1,0 +1,9 @@
+title: "Complete OpenSearch Domain Example"
+description: "This example demonstrates the complete configuration of an Amazon OpenSearch Service Domain using Terraform."
+main_purpose: "The main purpose is to showcase how to deploy a fully configured OpenSearch cluster inside a VPC with dedicated masters, auto-tune, fine-grained access control, and other production-ready settings."
+key_features:
+  - "**Cluster Configuration**: provisions an OpenSearch cluster with both dedicated master nodes (`c6g.large.search`) and data nodes (`r6g.large.search`), spanning 3 availability zones for high availability."
+  - "**VPC and Security**: Deploys the cluster completely within private subnets of a VPC, managing ingress rules via attached Security Groups."
+  - "**Fine-Grained Access Control**: Configures advanced security options, including an internal user database and a master user configuration."
+  - "**Encryption & EBS Configuration**: Enables data encryption at rest and node-to-node encryption, along with provisioning `gp3` EBS volumes for storage."
+  - "**Maintenance & Auto-Tune**: Sets up Auto-Tune for performance optimization and customizes the cluster's maintenance windows and software update policies."
