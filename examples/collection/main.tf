@@ -43,6 +43,6 @@ module "opensearch_collection_disabled" {
 
 resource "aws_opensearchserverless_vpc_endpoint" "example" {
   name       = local.name
-  subnet_ids = data.aws_subnets.private.ids
-  vpc_id     = data.aws_vpc.vpc.id
+  subnet_ids = data.aws_subnets.this.ids
+  vpc_id     = data.aws_vpc.this.id
 }

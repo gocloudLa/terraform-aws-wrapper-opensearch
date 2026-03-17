@@ -98,13 +98,13 @@ module "wrapper_opensearch" {
       }
 
       vpc_options = {
-        subnet_ids = data.aws_subnets.private.ids
+        subnet_ids = data.aws_subnets.this.ids
       }
 
       # VPC endpoint
       vpc_endpoints = {
         one = {
-          subnet_ids = data.aws_subnets.private.ids
+          subnet_ids = data.aws_subnets.this.ids
         }
       }
 
@@ -116,7 +116,7 @@ module "wrapper_opensearch" {
           from_port   = 443
           to_port     = 443
           ip_protocol = "tcp"
-          cidr_ipv4   = data.aws_vpc.vpc.cidr_block
+          cidr_ipv4   = data.aws_vpc.this.cidr_block
         }
       }
 
