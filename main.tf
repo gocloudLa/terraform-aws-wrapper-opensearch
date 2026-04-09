@@ -34,7 +34,7 @@ module "opensearch" {
     "enforce_https" : true,
     "tls_security_policy" : "Policy-Min-TLS-1-2-2019-07"
   })
-  domain_name = try(each.value.domain_name, var.opensearch_defaults.domain_name, "")
+  domain_name = try(each.value.domain_name, var.opensearch_defaults.domain_name, local.common_name)
   ebs_options = try(each.value.ebs_options, var.opensearch_defaults.ebs_options, {
     "ebs_enabled" : true,
     "volume_size" : 64,
@@ -46,7 +46,7 @@ module "opensearch" {
   })
   engine_version          = try(each.value.engine_version, var.opensearch_defaults.engine_version, null)
   identity_center_options = try(each.value.identity_center_options, var.opensearch_defaults.identity_center_options, null)
-  ip_address_type         = try(each.value.ip_address_type, var.opensearch_defaults.ip_address_type, null)
+  ip_address_type         = try(each.value.ip_address_type, var.opensearch_defaults.ip_address_type, "ipv4")
   log_publishing_options = try(each.value.log_publishing_options, var.opensearch_defaults.log_publishing_options, [
     {
       "log_type" : "INDEX_SLOW_LOGS"
@@ -76,7 +76,7 @@ module "opensearch" {
   software_update_options = try(each.value.software_update_options, var.opensearch_defaults.software_update_options, {
     "auto_software_update_enabled" : true
   })
-  tags          = try(each.value.tags, var.opensearch_defaults.tags, {})
+  tags          = merge(local.common_tags, try(each.value.tags, var.opensearch_defaults.tags, null))
   timeouts      = try(each.value.timeouts, var.opensearch_defaults.timeouts, {})
   vpc_endpoints = try(each.value.vpc_endpoints, var.opensearch_defaults.vpc_endpoints, {})
   # vpc_options   = try(each.value.vpc_options, var.opensearch_defaults.vpc_options, {})
@@ -84,4 +84,5 @@ module "opensearch" {
     subnet_ids         = try(each.value.subnet_ids, var.opensearch_defaults.subnet_ids, data.aws_subnets.this[each.key].ids)
     security_group_ids = concat(try(each.value.security_group_create, true) ? [module.security_group_opensearch[each.key].security_group_id] : [], try(each.value.security_groups_ids, []))
   }
+
 }
