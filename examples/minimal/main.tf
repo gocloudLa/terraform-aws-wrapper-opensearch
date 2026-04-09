@@ -74,8 +74,8 @@ module "wrapper_opensearch" {
       # }
 
       advanced_security_options = {
-        enabled = true
-        anonymous_auth_enabled         = true
+        enabled                = true
+        anonymous_auth_enabled = true
         # internal_user_database_enabled = true
 
         # master_user_options = {
