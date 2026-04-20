@@ -23,7 +23,7 @@ The Terraform wrapper for OpenSearch simplifies the configuration of the Amazon 
 ### 🔗 External Modules
 | Name | Version |
 |------|------:|
-| <a href="https://github.com/terraform-aws-modules/terraform-aws-opensearch" target="_blank">terraform-aws-modules/opensearch/aws</a> | 2.5.0 |
+| <a href="https://github.com/terraform-aws-modules/terraform-aws-opensearch" target="_blank">terraform-aws-modules/opensearch/aws</a> | 2.6.0 |
 | <a href="https://github.com/terraform-aws-modules/terraform-aws-security-group" target="_blank">terraform-aws-modules/security-group/aws</a> | 5.3.1 |
 
 
