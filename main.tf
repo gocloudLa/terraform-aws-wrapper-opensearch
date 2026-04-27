@@ -1,7 +1,7 @@
 module "opensearch" {
   for_each = var.opensearch_parameters
   source   = "terraform-aws-modules/opensearch/aws"
-  version  = "2.5.0"
+  version  = "2.9.0"
 
 
   access_policies                         = try(each.value.access_policies, var.opensearch_defaults.access_policies, null)
