@@ -1,6 +1,6 @@
 module "security_group_opensearch" {
   source  = "terraform-aws-modules/security-group/aws"
-  version = "5.3.1"
+  version = "6.0.0"
 
   for_each = var.opensearch_parameters
 
